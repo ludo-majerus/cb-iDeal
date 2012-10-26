@@ -1,0 +1,30 @@
+# Sample localization file for French. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+fr:
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: 'il y a 1 heure'
+        other: 'il y a %{count} heures'
+      less_than_x_minutes: 
+        one: 'il y a moins de 1 minute'
+        other: 'il y a moins de %{count} minutes'
+      x_minutes:
+        one: 'il y a 1 minute'
+        other: 'il y a %{count} minutes'
+      x_days:
+        one: 'il y a 1 jour'
+        other: 'il y a %{count} jours'
+  hello: "Salut "
+  type_title_here: "Tapez votre titre ici..."
+  idea: "Idée"
+  edit_idea: "Éditez l'idée"
+  create_idea: "Postez l'idée"
+  access_restricted: 'Vous devez être connecté pour accéder à cette section'
+  all_ideas: 'Toutes les idées'
+  post_new_idea: "Postez une nouvelle idée"
+  users: 'Utilisateurs'
+  login: 'Connection'
+  logout: 'Déconnection'
+

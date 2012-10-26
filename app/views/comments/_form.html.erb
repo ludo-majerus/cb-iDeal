@@ -1,0 +1,32 @@
+<div id="commentPost">
+  <% if session[:current_user_authenticated].nil? %>
+    You must be <a href="/sessions/new">authenticated</a> to post a comment
+  <% else %>  
+    Post a comment:
+
+    <%= form_for(@comment) do |f| %>
+      <% if @comment.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+          <ul>
+          <% @comment.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= f.text_area :body, :rows => 5 %>
+      </div>
+
+      <%= f.hidden_field :idea_id, :name => "idea_id", :value => @idea.id %>
+      
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <% end %>
+
+  <% end %>
+</div>

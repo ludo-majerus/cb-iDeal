@@ -1,0 +1,48 @@
+<header class="navbar navbar-fixed-top">
+  <nav class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <%= link_to "cb:iDeal", root_path, :class => 'brand' %>
+
+      <div class="nav-collapse">
+        <ul class="nav">
+
+          <li class=""><a href="/ideas"><%= t(:all_ideas)%></a></li>
+          <li class="divider-vertical"></li>
+
+          <li class=""><a href="/ideas/new"><%= t(:post_new_idea)%></a></li>
+          <li class="divider-vertical"></li>
+
+          <% if session[:current_user_admin] %>
+            <li class=""><a href="/users"><%= t(:users)%></a></li>
+            <li class="divider-vertical"></li>
+          <% end %>
+
+          <li class="">
+          <% if session[:current_user_authenticated].nil? %>
+            <a href="/sessions/new"><%= t(:login)%></a>
+          <% else %>
+            <p class="navbar-text">
+              <%= t(:hello)%> <%= User.find(session[:current_user_authenticated]).nickname %>
+              <% if session[:current_user_admin] %>
+                <strong class="isAdmin">ADMIN</strong>
+              <% end %>
+              <em>(<a href="/sessions/delete"><%= t(:logout)%></a>)</em>
+            </p>
+          <% end %>
+          </li>
+
+        </ul>
+      </div>
+
+      <%= form_tag ideas_path, :method => :get, :id => 'idea_search', :class => "navbar-search pull-right visible-desktop" do %>
+          <%= text_field_tag 'search[title_or_body_contains]', nil, :class => "search-query", :placeholder => "Search" %>
+      <% end %>
+
+    </div>
+  </nav>
+</header>

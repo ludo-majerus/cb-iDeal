@@ -1,0 +1,23 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "%b %d"
+      long: "%B %d, %Y"
+
+  hello: "Hello "
+  type_title_here: "Type your title here..."
+  idea: "Idea"
+  edit_idea: "Editing the idea"
+  create_idea: "Post your idea"
+  access_restricted: 'You need to be logged in to access this area'
+  all_ideas: 'All ideas'
+  post_new_idea: 'Post a new idea'
+  users: 'Users'
+  login: 'Log in'
+  logout: 'Logout'
+  different_owner: 'This idea is owned by another user'

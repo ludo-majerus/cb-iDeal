@@ -1,0 +1,115 @@
+<script type="text/javascript">
+$(function() {
+  $('.ideaBody').truncate();
+});
+</script>
+
+<div class="container-fluid">
+
+  <div class="hero-unit visible-desktop">
+    <h1 id="responsive_headline">Vote for ideas or submit yours !</h1>
+    <p>Careerbuilder team is waiting for your feedback to improve existing tools they are creating.</p>
+    <br />
+    <p style="text-align:center">
+      <a href="/ideas/new" class="btn btn-primary btn-large"><%= t(:post_new_idea)%></a>
+    </p>
+  </div>
+
+  <div class="well well-large visible-tablet">
+    <h3 id="responsive_headline">Vote for ideas or submit yours !</h1>
+    <p>Careerbuilder team is waiting for your feedback to improve existing tools they are creating.</p>
+    <br />
+    <p style="text-align:center">
+      <a href="/ideas/new" class="btn btn-primary btn-large"><%= t(:post_new_idea)%></a>
+    </p>
+  </div>
+
+  <div class="well well-small visible-phone">
+    <h5 id="responsive_headline">Vote for ideas or submit yours !</h1>
+    <p>Careerbuilder team is waiting for your feedback to improve existing tools they are creating.</p>
+    <br />
+    <p style="text-align:center">
+      <a href="/ideas/new" class="btn btn-primary btn-large"><%= t(:post_new_idea)%></a>
+    </p>
+  </div>
+
+  <div class="tabbable tabs-above hidden-phone">
+    <div class="tab-content">Filters ideas: </div>
+
+    
+    <ul class="nav nav-tabs">
+
+      <% if params[:category_id].nil? %>
+        <li class="active">
+      <% else %>
+        <li>
+      <% end %>
+        <%= link_to "All", ideas_url %>
+      </li>
+      <% @categories.each do |cat| %>
+        <% if params[:category_id].to_s == cat.id.to_s %>
+          <li class="active">
+        <% else %>
+          <li>
+        <% end %>
+
+          <%= link_to cat.name, ideas_url + "?category_id=#{cat.id}" %>
+        </li>
+      <% end %>
+    </ul>
+
+  </div>
+
+  <% @ideas.each do |idea| %>
+      <div class="table table-hover">
+      <div class="row-fluid ">
+
+        <div class="span12">
+          <%= link_to idea.category.name, ideas_url + "?category_id=#{idea.category_id}", :class =>"btn btn-success btn-mini" %>
+
+          <h4 style="display:inline;"><%= link_to idea.title, idea %></h4>
+          <% if idea.status == 0 || idea.status.nil? %> 
+            <span style="color:red"><strong>OFFLINE</strong></span>
+          <% end %>
+        </div>  
+
+      </div>
+      
+      <div class="row-fluid">
+        <div class="span12"> 
+          <blockquote>
+            <div class="ideaBody"><%= simple_format(idea.body) %></div>
+            <small>(<cite>from @<%= idea.user.nickname if idea.user  %>, </cite>
+            <%= distance_of_time_in_words_to_now idea.updated_at %>)</small>
+        </div>
+
+      </div>
+      <div class="row-fluid">
+        
+        <div class="span9">
+          <%= link_to "#comments : #{idea.comment.count}", idea, :anchor => 'commentList' %> 
+          | Idea score : <%= idea.score %> 
+          <% if session[:idea_voted].index(idea.id.to_s).nil? %>
+            | <%= link_to 'I like this idea', scoreup_idea_path(idea) %>
+          <% end %>
+        </div>
+
+        <% if session[:current_user_authenticated].to_s == idea.user_id.to_s %>
+          <div class="span3">
+            <div class="btn-group" data-toggle="buttons-checkbox" style="text-align: center;">
+              <%= link_to 'Edit', edit_idea_path(idea), :class => "btn btn-primary btn-mini" %> 
+              <%= link_to 'Destroy', idea, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger btn-mini" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <hr />
+    
+    </div>
+  <% end %>
+
+  <div class="flickr_pagination pagination-centered">
+    <%= will_paginate @ideas, :class => "flickr_pagination"  %>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+
+<%= form_for(@idea) do |f| %>
+
+  <% if @idea.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@idea.errors.count, "error") %> prohibited this idea from being saved:</h2>
+
+      <ul>
+      <% @idea.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <label id="idea_title"> <%= f.text_field :title, :class => 'span10', :placeholder => 'Your title here...' %> </label> 
+  <label id="idea_body"><%= f.text_area :body, :class => 'span10 tinymce', :placeholder => 'Your idea description here...' %> </label> 
+
+  <%= select :idea, "category_id", @categories.map {|c| [c.name,c.id]} %>
+  <br />
+  <%= f.submit :class => "btn btn-primary btn-normal" %>
+
+<% end %> 

@@ -1,0 +1,19 @@
+<div class="span12" id="commentList">
+
+  Comments : 
+  <% if @idea.comment.count == 0 %>
+    No comment
+  <% else %>
+    <% @idea.comment.each do |comment| %>
+      <br />
+      <%= distance_of_time_in_words_to_now comment.created_at %>, <strong><%= comment.user.nickname %></strong> wrote : <br />
+      <em><%= comment.body %></em>
+      <hr />
+    <% end %>
+  <% end %>
+
+
+
+  <%= render 'comments/form.html.erb' %>
+
+</div>
